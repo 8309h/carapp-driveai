@@ -11,7 +11,7 @@ const cars = [
             mileage: "22 km/l",
             transmission: "Manual",
             features: ["Touchscreen", "Bluetooth", "Airbags"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/159099/swift-exterior-right-front-three-quarter-2.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: false,
             isFamilyFriendly: true
       },
@@ -27,7 +27,7 @@ const cars = [
             mileage: "23 km/l",
             transmission: "Automatic",
             features: ["360 Camera", "Head-up Display"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/149125/baleno-exterior-right-front-three-quarter.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: false,
             isFamilyFriendly: true
       },
@@ -43,7 +43,7 @@ const cars = [
             mileage: "20 km/l",
             transmission: "Automatic",
             features: ["Sunroof", "Cruise Control"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/139403/brezza-exterior-right-front-three-quarter.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: false,
             isFamilyFriendly: true
       },
@@ -59,7 +59,7 @@ const cars = [
             mileage: "27 km/l",
             transmission: "Automatic",
             features: ["Panoramic Sunroof", "ADAS"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/115777/grand-vitara-exterior-right-front-three-quarter.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: true,
             isFamilyFriendly: true
       },
@@ -75,7 +75,7 @@ const cars = [
             mileage: "21 km/l",
             transmission: "Manual",
             features: ["Cruise Control", "Rear AC Vent"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/27074/ciaz-exterior-right-front-three-quarter.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: false,
             isFamilyFriendly: true
       },
@@ -91,7 +91,7 @@ const cars = [
             mileage: "20 km/l",
             transmission: "Automatic",
             features: ["7 Seater", "Rear Camera"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/115757/ertiga-exterior-right-front-three-quarter.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: false,
             isFamilyFriendly: true
       },
@@ -107,7 +107,7 @@ const cars = [
             mileage: "20 km/l",
             transmission: "Automatic",
             features: ["Captain Seats", "LED Lights"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/115749/xl6-exterior-right-front-three-quarter.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: false,
             isFamilyFriendly: true
       },
@@ -123,7 +123,7 @@ const cars = [
             mileage: "25 km/l",
             transmission: "Manual",
             features: ["Compact", "Budget Friendly"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/131825/alto-k10-exterior-right-front-three-quarter.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: false,
             isFamilyFriendly: false
       },
@@ -155,7 +155,7 @@ const cars = [
             mileage: "16 km/l",
             transmission: "Manual",
             features: ["4x4", "Off-road"],
-            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/138683/jimny-exterior-right-front-three-quarter.jpeg",
+            image: "https://imgd.aeplcdn.com/600x337/n/cw/ec/130591/fronx-exterior-right-front-three-quarter.jpeg",
             isFlagship: false,
             isFamilyFriendly: false
       }

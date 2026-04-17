@@ -1,60 +1,104 @@
+const hasKeyword = (q, keywords) => {
+      return keywords.some(k => q.includes(k));
+};
+
 const parseIntent = (query) => {
       const q = query.toLowerCase();
 
-      if (q.includes("suv")) {
-            return { action: "FILTER_CARS", filters: { type: "SUV" } };
-      }
+      // 🔥 Extract entities
+      const carMatches = q.match(/car_\d+/g) || [];
 
-      if (q.includes("under")) {
-            const num = parseInt(q.match(/\d+/)?.[0]);
-            if (num) {
-                  return {
-                        action: "FILTER_CARS",
-                        filters: { maxPrice: num * 100000 }
-                  };
-            }
-      }
+      const priceMatch = q.match(/\d+/);
+      const price = priceMatch ? parseInt(priceMatch[0]) : null;
 
-      if (q.includes("compare")) {
+      const cities = ["mumbai", "delhi", "kochi", "bangalore"];
+      const city = cities.find((c) => q.includes(c)) || "";
+
+      const getNextDay = () => {
+            const d = new Date();
+            d.setDate(d.getDate() + 1);
+            return d.toISOString().split("T")[0];
+      };
+
+      // 🔥 KEYWORD GROUPS (GENERIC AI BEHAVIOR)
+      const compareWords = ["compare", "difference", "vs", "with"];
+      const bookWords = ["book", "booking", "test drive"];
+      const filterWords = ["suv", "under", "price", "cheap"];
+      const recommendWords = ["family", "best", "suggest"];
+      const currencyWords = ["usd", "dollar"];
+
+      // ================= PRIORITY =================
+
+      // 🔥 COMPARE (generic)
+      if (carMatches.length >= 2 || hasKeyword(q, compareWords)) {
             return {
                   action: "COMPARE_CARS",
-                  cars: ["car_004", "car_003"]
+                  cars: carMatches.slice(0, 2),
+                  message:
+                        carMatches.length < 2
+                              ? "Try: compare car_001 and car_002"
+                              : ""
             };
       }
 
-      if (q.includes("book")) {
+      // 🔥 BOOK
+      if (hasKeyword(q, bookWords)) {
             return {
                   action: "BOOK_TEST_DRIVE",
                   data: {
-                        carId: "car_004",
-                        city: "Kochi",
-                        date: "2026-04-20"
+                        carId: carMatches[0] || "",
+                        city,
+                        date: getNextDay()
                   }
             };
       }
 
-      if (q.includes("family")) {
+      // 🔥 FILTER
+      if (hasKeyword(q, filterWords)) {
+            return {
+                  action: "FILTER_CARS",
+                  filters: {
+                        type: q.includes("suv") ? "SUV" : undefined,
+                        maxPrice: price ? price * 100000 : undefined
+                  }
+            };
+      }
+
+      // 🔥 RECOMMEND
+      if (hasKeyword(q, recommendWords)) {
             return {
                   action: "RECOMMEND_CAR",
                   criteria: { seats: 5 }
             };
       }
 
-      if (q.includes("dollar") || q.includes("usd")) {
+      // 🔥 CURRENCY
+      if (hasKeyword(q, currencyWords)) {
             return {
                   action: "CHANGE_CURRENCY",
                   currency: "USD"
             };
       }
 
-      if (q.includes("flagship")) {
+      // 🔥 HIGHLIGHT
+      if (carMatches.length === 1) {
             return {
                   action: "HIGHLIGHT_CAR",
-                  carId: "car_004"
+                  carId: carMatches[0]
             };
       }
 
-      return { action: "UNKNOWN" };
+      // 🔥 FALLBACK
+      return {
+            action: "UNKNOWN",
+            suggestions: [
+                  "Compare car_001 and car_002",
+                  "Show SUVs under 20 lakhs",
+                  "Book car_003 in Mumbai",
+                  "Best car for family",
+                  "Show prices in USD"
+            ]
+      };
 };
 
 module.exports = { parseIntent };
