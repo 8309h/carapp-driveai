@@ -145,13 +145,6 @@ npm run dev
 * Chat history storage
 
 ---
-
-## 🎥 Demo Video (Optional)
-
-[Add video link if available]
-
----
-
 ## 📌 Author
 
 Harshal Wagh
