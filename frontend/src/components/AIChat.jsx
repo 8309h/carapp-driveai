@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { sendQuery } from "../api";
 
 const AIChat = ({ setCars, setSelectedCars, setBooking }) => {
@@ -8,7 +8,49 @@ const AIChat = ({ setCars, setSelectedCars, setBooking }) => {
 
       const chatRef = useRef(null);
 
-      // 🔥 SEND
+      // 🔥 DRAG STATE
+      const isDragging = useRef(false);
+      const offset = useRef({ x: 0, y: 0 });
+
+      // 🔥 START DRAG
+      const handleMouseDown = (e) => {
+            isDragging.current = true;
+
+            const rect = chatRef.current.getBoundingClientRect();
+
+            offset.current = {
+                  x: e.clientX - rect.left,
+                  y: e.clientY - rect.top
+            };
+      };
+
+      // 🔥 DRAG MOVE
+      const handleMouseMove = (e) => {
+            if (!isDragging.current) return;
+
+            chatRef.current.style.left = `${e.clientX - offset.current.x}px`;
+            chatRef.current.style.top = `${e.clientY - offset.current.y}px`;
+            chatRef.current.style.right = "auto"; // important
+            chatRef.current.style.bottom = "auto"; // important
+      };
+
+      // 🔥 STOP DRAG
+      const handleMouseUp = () => {
+            isDragging.current = false;
+      };
+
+      useEffect(() => {
+            document.addEventListener("mousemove", handleMouseMove);
+            document.addEventListener("mouseup", handleMouseUp);
+
+            return () => {
+                  document.removeEventListener("mousemove", handleMouseMove);
+                  document.removeEventListener("mouseup", handleMouseUp);
+            };
+      }, []);
+
+      // ================= SEND =================
+
       const handleSend = async (customInput) => {
             const query = customInput || input;
             if (!query.trim()) return;
@@ -22,27 +64,24 @@ const AIChat = ({ setCars, setSelectedCars, setBooking }) => {
                   { role: "ai", text: res.message }
             ]);
 
-            // ACTIONS
             if (res.intent.action === "FILTER_CARS") {
                   setCars(res.data);
-                  setTimeout(() => scrollTo("cars"), 100);
+                  scrollTo("cars");
             }
 
             if (res.intent.action === "COMPARE_CARS") {
                   setSelectedCars(res.data);
-                  setTimeout(() => scrollTo("compare"), 100);
+                  scrollTo("compare");
             }
 
             if (res.intent.action === "BOOK_TEST_DRIVE") {
                   setBooking(res.intent.data);
-                  setTimeout(() => scrollTo("booking"), 100);
+                  scrollTo("booking");
             }
 
-            // FALLBACK
             if (res.intent.action === "UNKNOWN") {
                   setMessages((prev) => [
                         ...prev,
-                        { role: "ai", text: res.message || "Try one of these:" },
                         ...res.suggestions.map((s) => ({
                               role: "suggestion",
                               text: s
@@ -67,19 +106,17 @@ const AIChat = ({ setCars, setSelectedCars, setBooking }) => {
             <div
                   ref={chatRef}
                   className={`chat ${minimized ? "minimized" : ""}`}
+                  style={{ position: "fixed", right: "20px", bottom: "20px" }}
             >
-                  {/* HEADER */}
-                  <div className="chat-header">
+                  {/* 🔥 HEADER (DRAG AREA) */}
+                  <div className="chat-header" onMouseDown={handleMouseDown}>
                         <span>DriveAI</span>
 
-                        <div>
-                              <button onClick={() => setMinimized(!minimized)}>
-                                    {minimized ? "⬆️" : "➖"}
-                              </button>
-                        </div>
+                        <button onClick={() => setMinimized(!minimized)}>
+                              {minimized ? "⬆️" : "➖"}
+                        </button>
                   </div>
 
-                  {/* BODY */}
                   {!minimized && (
                         <>
                               <div className="messages">

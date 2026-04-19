@@ -1,7 +1,8 @@
 import axios from "axios";
 
+// http://localhost:5000
 export const sendQuery = async (query) => {
-      const res = await axios.post("http://localhost:5000/api/v1/ai/interpret", {
+      const res = await axios.post("https://carapp-driveai.onrender.com/api/v1/ai/interpret", {
             query
       });
       return res.data;
@@ -9,13 +10,13 @@ export const sendQuery = async (query) => {
 
 
 export const getCars = async () => {
-      const res = await axios.get("http://localhost:5000/api/v1/cars");
+      const res = await axios.get("https://carapp-driveai.onrender.com/api/v1/cars");
       return res.data.data;
 };
 
 
 export const createBooking = async (data) => {
-      const res = await fetch("http://localhost:5000/api/v1/bookings", {
+      const res = await fetch("https://carapp-driveai.onrender.com/api/v1/bookings", {
             method: "POST",
             headers: {
                   "Content-Type": "application/json"
