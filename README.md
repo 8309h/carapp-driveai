@@ -2,11 +2,11 @@
 
 ## 🔗 Live Demo
 
-[Add your deployed link here]
+https://carapp-driveai.vercel.app/
 
 ## 📂 GitHub Repository
 
-[Add your repo link here]
+https://github.com/8309h/carapp-driveai
 
 ---
 
